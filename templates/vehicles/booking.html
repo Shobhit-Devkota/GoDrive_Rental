@@ -71,8 +71,7 @@
         {% endif %}
 
         <!-- Live price summary -->
-         # Priyanshu
-        {% comment %} <div id="price-summary" class="hidden rounded-xl section-light-blue p-5 space-y-2 text-sm">
+         <div id="price-summary" class="hidden rounded-xl section-light-blue p-5 space-y-2 text-sm">
           <div class="flex justify-between"><span class="text-gray-600">Duration</span><span id="summary-days" class="font-semibold text-dark-gray">-</span></div>
           <div class="flex justify-between"><span class="text-gray-600">Base rate / day</span><span id="summary-rate" class="font-semibold text-dark-gray">-</span></div>
           <div class="flex justify-between"><span class="text-gray-600">Destination adjustment</span><span id="summary-destination-charge" class="font-semibold text-dark-gray">-</span></div>
@@ -85,8 +84,8 @@
             <span id="summary-advance" class="font-extrabold text-teal text-base">-</span>
           </div>
           <p class="text-xs text-gray-500 pt-1">The remaining amount is paid directly on vehicle pickup.</p>
-        </div> {% endcomment %}
-# End
+        </div> 
+        
         <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">
           {% if is_edit %}Save Changes{% else %}Proceed to Advance Payment (eSewa){% endif %}
         </button>
