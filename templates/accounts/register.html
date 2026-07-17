@@ -10,13 +10,11 @@
 
   <form method="post" class="card p-6 md:p-8 space-y-5">
     {% csrf_token %}
-# Sanjiv
-    {% comment %} <div>
+   <div>
       <label class="block text-sm font-semibold text-dark-gray mb-1.5">Username</label>
       {{ form.username }}
       {% if form.username.errors %}<p class="text-xs text-red-600 mt-1">{{ form.username.errors.0 }}</p>{% endif %}
-    </div> {% endcomment %}
-    # End
+    </div> 
     <div>
       <label class="block text-sm font-semibold text-dark-gray mb-1.5">Email</label>
       {{ form.email }}
