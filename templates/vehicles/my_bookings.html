@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}My Bookings - GoRental{% endblock %}
+
+{% block content %}
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <h1 class="text-2xl md:text-3xl font-bold text-dark-gray mb-2">My Bookings</h1>
+  <p class="text-gray-500 mb-8">You can edit or cancel a booking any time before our team verifies it.</p>
+# Sanjiv
+  {% comment %} <div class="space-y-4">
+    {% for booking in bookings %}
+    <div class="card p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 class="font-bold text-dark-gray">{{ booking.vehicle }}</h3>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full
+              {% if booking.status == 'confirmed' %}badge-available
+              {% elif booking.status == 'cancelled' %}badge-booked
+              {% else %}bg-gray-100 text-gray-600{% endif %}">
+              {{ booking.get_status_display }} {% endcomment %}
+               # End
+            </span>
+            {% if booking.is_verified %}
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full badge-available">Verified</span>
+            {% endif %}
+          </div>
+          <p class="text-sm text-gray-500 mt-1">{{ booking.start_date }} &rarr; {{ booking.end_date }} &middot; {{ booking.total_days }} day(s)</p>
+          {% if booking.destination %}<p class="text-sm text-gray-500">Destination: {{ booking.destination }}</p>{% endif %}
+          <p class="text-sm text-gray-500 mt-1">Advance paid: <span class="font-semibold text-teal">NPR {{ booking.advance_amount }}</span></p>
+        </div>
+
+        <div class="flex flex-col items-end gap-3">
+          <span class="font-extrabold text-deep-blue text-lg">NPR {{ booking.total_price|floatformat:0 }}</span>
+# Sandhya
+          {% comment %} {% if not booking.is_verified and booking.status != 'cancelled' and booking.status != 'completed' %}
+          <div class="flex gap-2">
+            <a href="{% url 'vehicles:edit_booking' booking.pk %}" class="btn-outline text-xs font-semibold px-4 py-2 rounded-lg">Edit</a>
+            <a href="{% url 'vehicles:cancel_booking' booking.pk %}" class="text-xs font-semibold px-4 py-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors">Cancel</a>
+          </div>
+          {% else %}
+          <span class="text-xs text-gray-400">{% if booking.status == 'cancelled' %}Cancelled{% else %}Locked — verified by admin{% endif %}</span>
+          {% endif %} {% endcomment %}
+          # End
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500">You have no bookings yet. <a href="{% url 'vehicles:category_list' %}" class="text-deep-blue font-semibold hover:underline">Browse vehicles</a> to get started.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

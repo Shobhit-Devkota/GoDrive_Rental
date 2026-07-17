@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}{% if active_brand %}{{ active_brand.name }} Vehicles{% elif query %}Search: {{ query }}{% else %}All Vehicles{% endif %} - GoRental{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-dark-gray">
+      {% if active_brand %}{{ active_brand.name }} Vehicles
+      {% elif query %}Search Results for "{{ query }}"
+      {% else %}Our Vehicle Fleet{% endif %}
+    </h1>
+    <p class="text-gray-500 mt-1">Search by brand or model to find the right vehicle for your trip.</p>
+  </div>
+
+  <!-- Search bar -->
+  <form method="get" class="mb-4">
+    <div class="relative max-w-xl">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
+      <input type="text" name="q" value="{{ query }}" placeholder="Search by brand or model, e.g. Toyota, Creta, Swift..."
+             class="w-full rounded-full border border-gray-300 pl-12 pr-28 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-deep-blue focus:border-transparent">
+      <button type="submit" class="absolute right-1.5 top-1.5 btn-primary text-sm font-semibold px-5 py-1.5 rounded-full">Search</button>
+    </div>
+  </form>
+
+  <!-- Top 5 brand suggestions -->
+  <div class="flex flex-wrap items-center gap-2 mb-10">
+    <span class="text-xs text-gray-400 mr-1">Popular:</span>
+    {% for brand in top_brands %}
+    <a href="?q={{ brand.name|urlencode }}" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-light-blue text-deep-blue hover:bg-deep-blue hover:text-white transition-colors">
+      {{ brand.name }}
+    </a>
+    {% endfor %}
+    {% if active_brand or query %}
+    <a href="{% url 'vehicles:category_list' %}" class="px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-200 text-gray-500 hover:border-deep-blue hover:text-deep-blue transition-colors">
+      Clear search
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for vehicle in vehicles %}
+    <div class="card overflow-hidden" data-card-href="{% url 'vehicles:detail' vehicle.pk %}">
+      <div class="relative w-full aspect-[4/3] overflow-hidden bg-gray-100" data-carousel>
+        <div class="carousel-track h-full">
+          {% for img in vehicle.images.all %}
+          <img src="{{ img.url }}" alt="{{ vehicle }} {{ img.get_angle_display }}" class="carousel-slide">
+          {% empty %}
+          <img src="https://placehold.co/600x450/E0F2FE/111827?text={{ vehicle.brand.name }}" alt="{{ vehicle }}" class="carousel-slide">
+          {% endfor %}
+        </div>
+
+        {% if vehicle.images.count > 1 %}
+        <button data-no-navigate class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full carousel-arrow flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button data-no-navigate class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full carousel-arrow flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" data-no-navigate>
+          {% for img in vehicle.images.all %}
+          <button class="carousel-dot {% if forloop.first %}active{% endif %}"></button>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <span class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full {% if vehicle.is_available %}badge-available{% else %}badge-booked{% endif %}">
+          {% if vehicle.is_available %}Available{% else %}Booked{% endif %}
+        </span>
+      </div>
+
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-bold text-dark-gray">{{ vehicle.brand.name }} {{ vehicle.model_name }}</h3>
+          <span class="text-xs text-gray-400">{{ vehicle.seats }} seats</span>
+        </div>
+        <p class="text-sm text-gray-500 mb-4 line-clamp-2">{{ vehicle.description|truncatewords:16 }}</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-lg font-extrabold text-deep-blue">NPR {{ vehicle.price_per_day|floatformat:0 }}</span>
+            <span class="text-xs text-gray-400">/ day</span>
+          </div>
+          <a data-no-navigate href="{% url 'vehicles:detail' vehicle.pk %}" class="btn-accent text-sm font-semibold px-4 py-2 rounded-lg">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-full">No vehicles found{% if query %} for "{{ query }}"{% endif %}. Try a different search.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

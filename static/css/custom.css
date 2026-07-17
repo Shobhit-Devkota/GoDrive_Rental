@@ -1,0 +1,111 @@
+:root {
+  --deep-blue: #1D4ED8;
+  --teal: #0D9488;
+  --soft-white: #F8FAFC;
+  --light-blue: #E0F2FE;
+  --dark-gray: #111827;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--soft-white);
+  color: var(--dark-gray);
+}
+
+.btn-primary {
+  background-color: var(--deep-blue);
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover {
+  background-color: #1a41b8;
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  background-color: var(--teal);
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-accent:hover {
+  background-color: #0b7d73;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--deep-blue);
+  color: var(--deep-blue);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+.btn-outline:hover {
+  background-color: var(--deep-blue);
+  color: #fff;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.12);
+  transform: translateY(-3px);
+}
+
+.section-light-blue {
+  background-color: var(--light-blue);
+}
+
+.badge-available {
+  background-color: rgba(13, 148, 136, 0.12);
+  color: var(--teal);
+}
+.badge-booked {
+  background-color: rgba(220, 38, 38, 0.10);
+  color: #dc2626;
+}
+
+/* Vehicle image carousel */
+.carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  height: 100%;
+}
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carousel-arrow {
+  background-color: rgba(17, 24, 39, 0.55);
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+.carousel-arrow:hover {
+  background-color: rgba(17, 24, 39, 0.85);
+}
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.55);
+}
+.carousel-dot.active {
+  background-color: #ffffff;
+  width: 16px;
+}
+
+/* Mobile nav */
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.mobile-menu.open {
+  max-height: 400px;
+}

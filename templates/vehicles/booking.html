@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_edit %}Edit Booking{% else %}Book {{ vehicle }}{% endif %} - GoRental{% endblock %}
+
+{% block content %}
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <h1 class="text-2xl md:text-3xl font-bold text-dark-gray mb-2">{% if is_edit %}Edit Your Booking{% else %}Book {{ vehicle }}{% endif %}</h1>
+  <p class="text-gray-500 mb-10">
+    {% if is_edit %}You can edit this booking until our team verifies it. The total price recalculates as you change dates or destination.
+    {% else %}Fill in your details below. The total price updates automatically as you choose dates and destination.{% endif %}
+  </p>
+
+  <div class="grid lg:grid-cols-3 gap-10">
+    <!-- Vehicle summary -->
+    <div class="lg:col-span-1">
+      <div class="card overflow-hidden">
+        <img src="{{ vehicle.main_image|default:'https://placehold.co/600x450/E0F2FE/111827?text=Vehicle' }}" alt="{{ vehicle }}" class="w-full aspect-[4/3] object-cover">
+        <div class="p-5">
+          <h3 class="font-bold text-dark-gray">{{ vehicle }}</h3>
+          <p class="text-sm text-gray-500 mt-1">{{ vehicle.seats }} seats &middot; {{ vehicle.get_transmission_display }} &middot; {{ vehicle.get_fuel_type_display }}</p>
+          <p class="text-deep-blue font-bold mt-3">NPR {{ vehicle.price_per_day|floatformat:0 }} <span class="text-gray-400 font-normal text-sm">/ day</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking form -->
+     # Sandhya
+    {% comment %} <div class="lg:col-span-2">
+      <form id="booking-form" method="post" data-price-per-day="{{ vehicle.price_per_day }}" class="card p-6 md:p-8 space-y-5">
+        {% csrf_token %}
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-dark-gray mb-1.5">Full Name</label>
+            {{ form.full_name }}
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-dark-gray mb-1.5">Phone Number</label>
+            {{ form.phone }}
+          </div>
+        </div> {% endcomment %}
+# End
+        <div>
+          <label class="block text-sm font-semibold text-dark-gray mb-1.5">Email</label>
+          {{ form.email }}
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark-gray mb-1.5">Destination</label>
+          <select name="destination" id="id_destination" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--deep-blue)] focus:border-transparent">
+            <option value="" data-extra="0">Select destination (optional)</option>
+            {% for dest in destinations %}
+            <option value="{{ dest.pk }}" data-extra="{{ dest.extra_charge_per_day }}" {% if booking.destination_id == dest.pk %}selected{% endif %}>
+              {{ dest.name }} ({% if dest.extra_charge_per_day >= 0 %}+{% endif %}NPR {{ dest.extra_charge_per_day|floatformat:0 }}/day)
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-dark-gray mb-1.5">Pickup Date</label>
+            {{ form.start_date }}
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-dark-gray mb-1.5">Return Date</label>
+            {{ form.end_date }}
+          </div>
+        </div>
+
+        {% if form.non_field_errors %}
+        <p class="text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
+        {% endif %}
+
+        <!-- Live price summary -->
+         # Priyanshu
+        {% comment %} <div id="price-summary" class="hidden rounded-xl section-light-blue p-5 space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-600">Duration</span><span id="summary-days" class="font-semibold text-dark-gray">-</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Base rate / day</span><span id="summary-rate" class="font-semibold text-dark-gray">-</span></div>
+          <div class="flex justify-between"><span class="text-gray-600">Destination adjustment</span><span id="summary-destination-charge" class="font-semibold text-dark-gray">-</span></div>
+          <div class="flex justify-between border-t border-blue-200 pt-2 mt-2">
+            <span class="font-bold text-dark-gray">Total Price</span>
+            <span id="summary-total" class="font-extrabold text-deep-blue text-base">-</span>
+          </div>
+          <div class="flex justify-between border-t border-blue-200 pt-2 mt-2">
+            <span class="font-semibold text-teal">Advance to pay now via eSewa (5%)</span>
+            <span id="summary-advance" class="font-extrabold text-teal text-base">-</span>
+          </div>
+          <p class="text-xs text-gray-500 pt-1">The remaining amount is paid directly on vehicle pickup.</p>
+        </div> {% endcomment %}
+# End
+        <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">
+          {% if is_edit %}Save Changes{% else %}Proceed to Advance Payment (eSewa){% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

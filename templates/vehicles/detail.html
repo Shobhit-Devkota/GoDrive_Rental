@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}{{ vehicle }} - GoRental{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <nav class="text-sm text-gray-500 mb-6">
+    <a href="{% url 'core:home' %}" class="hover:text-deep-blue">Home</a> /
+    <a href="{% url 'vehicles:category_by_brand' vehicle.brand.slug %}" class="hover:text-deep-blue">{{ vehicle.brand.name }}</a> /
+    <span class="text-dark-gray">{{ vehicle.model_name }}</span>
+  </nav>
+
+  <div class="grid lg:grid-cols-2 gap-10">
+    <!-- Large carousel -->
+    <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm" data-carousel>
+      <div class="carousel-track h-full">
+        {% for img in vehicle.images.all %}
+        <img src="{{ img.url }}" alt="{{ vehicle }} {{ img.get_angle_display }}" class="carousel-slide">
+        {% empty %}
+        <img src="https://placehold.co/800x600/E0F2FE/111827?text={{ vehicle.brand.name }}" alt="{{ vehicle }}" class="carousel-slide">
+        {% endfor %}
+      </div>
+
+      {% if vehicle.images.count > 1 %}
+      <button class="carousel-prev absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full carousel-arrow flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button class="carousel-next absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full carousel-arrow flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+      <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+        {% for img in vehicle.images.all %}
+        <button class="carousel-dot {% if forloop.first %}active{% endif %}"></button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <span class="absolute top-4 left-4 text-xs font-semibold px-3 py-1 rounded-full {% if vehicle.is_available %}badge-available{% else %}badge-booked{% endif %}">
+        {% if vehicle.is_available %}Available{% else %}Booked{% endif %}
+      </span>
+    </div>
+
+    <!-- Details -->
+    <div>
+      <span class="text-teal font-semibold text-sm">{{ vehicle.brand.name }}</span>
+      <h1 class="text-3xl font-extrabold text-dark-gray mt-1 mb-4">{{ vehicle.model_name }}</h1>
+      <p class="text-gray-600 leading-relaxed mb-6">{{ vehicle.description }}</p>
+
+      <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="card p-4 text-center">
+          <p class="text-xs text-gray-400 mb-1">Seats</p>
+          <p class="font-bold text-dark-gray">{{ vehicle.seats }}</p>
+        </div>
+        <div class="card p-4 text-center">
+          <p class="text-xs text-gray-400 mb-1">Transmission</p>
+          <p class="font-bold text-dark-gray">{{ vehicle.get_transmission_display }}</p>
+        </div>
+        <div class="card p-4 text-center">
+          <p class="text-xs text-gray-400 mb-1">Fuel Type</p>
+          <p class="font-bold text-dark-gray">{{ vehicle.get_fuel_type_display }}</p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between p-5 rounded-2xl section-light-blue">
+        <div>
+          <span class="text-2xl font-extrabold text-deep-blue">NPR {{ vehicle.price_per_day|floatformat:0 }}</span>
+          <span class="text-sm text-gray-500">/ day</span>
+        </div>
+        {% if vehicle.is_available %}
+          <a href="{% url 'vehicles:book' vehicle.pk %}" class="btn-primary font-semibold px-6 py-3 rounded-lg">Book Now</a>
+        {% else %}
+          <button disabled class="bg-gray-300 text-gray-500 font-semibold px-6 py-3 rounded-lg cursor-not-allowed">Not Available</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if related %}
+  <div class="mt-16">
+    <h2 class="text-xl font-bold text-dark-gray mb-6">More from {{ vehicle.brand.name }}</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for rv in related %}
+      <a href="{% url 'vehicles:detail' rv.pk %}" class="card overflow-hidden block">
+        <img src="{{ rv.main_image|default:'https://placehold.co/600x450/E0F2FE/111827?text=Vehicle' }}" alt="{{ rv }}" class="w-full aspect-[4/3] object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-dark-gray">{{ rv }}</h3>
+          <span class="text-deep-blue font-semibold">NPR {{ rv.price_per_day|floatformat:0 }}/day</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

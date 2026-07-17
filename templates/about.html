@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}About Us - GoRental{% endblock %}
+
+{% block content %}
+
+<section class="section-light-blue">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-dark-gray mb-4">About GoRental</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      GoRental is a Nepal-based travel vehicle rental platform built to make renting a car or bike
+      straightforward, transparent, and reliable — for local trips and long-distance travel alike.
+    </p>
+  </div>
+</section>
+
+<!-- Feature block 1: text left, image right -->
+
+# Priyanshu Khanal
+{% comment %} <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <span class="inline-block bg-light-blue text-deep-blue text-xs font-semibold px-3 py-1 rounded-full mb-4">Our Mission</span>
+    <h2 class="text-2xl md:text-3xl font-bold text-dark-gray mb-4">Making vehicle rental simple for every Nepali traveler</h2>
+    <p class="text-gray-600 leading-relaxed">
+      We started GoRental to solve a problem we ran into ourselves: renting a car or bike in Nepal
+      usually means phone calls, guesswork on pricing, and no easy way to check what's actually
+      available. GoRental puts real photos, clear daily rates, and instant availability in one place,
+      so you can book with confidence instead of uncertainty.
+    </p>
+  </div>
+  <img src="https://placehold.co/700x480/1D4ED8/FFFFFF?text=Our+Mission" alt="Our mission" class="rounded-2xl shadow-lg w-full object-cover">
+</section> {% endcomment %}
+
+# End of this work
+
+<!-- Feature block 2: image left, text right -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 grid md:grid-cols-2 gap-10 items-center">
+  <img src="https://placehold.co/700x480/0D9488/FFFFFF?text=Why+Choose+Us" alt="Why choose us" class="rounded-2xl shadow-lg w-full object-cover md:order-1 order-2">
+  <div class="md:order-2 order-1">
+    <span class="inline-block bg-teal/10 text-teal text-xs font-semibold px-3 py-1 rounded-full mb-4">Why Choose Us</span>
+    <h2 class="text-2xl md:text-3xl font-bold text-dark-gray mb-4">Verified accounts, real pricing, no surprises</h2>
+    <p class="text-gray-600 leading-relaxed">
+      Every renter registers before booking, every price is calculated upfront based on your exact
+      trip dates and destination, and every vehicle's availability is live — not a guess. A small 5%
+      advance through eSewa secures your booking, and our team personally verifies every request
+      before it's confirmed.
+    </p>
+  </div>
+</section>
+
+<!-- Values row -->
+<section class="section-light-blue">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-bold text-dark-gray text-center mb-12">What We Stand For</h2>
+    <div class="grid sm:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="w-14 h-14 rounded-full bg-deep-blue text-white flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <h3 class="font-semibold mb-2">Transparency</h3>
+        <p class="text-sm text-gray-500">Clear pricing and honest availability, always.</p>
+      </div>
+      <div>
+        <div class="w-14 h-14 rounded-full bg-teal text-white flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+        </div>
+        <h3 class="font-semibold mb-2">Security</h3>
+        <p class="text-sm text-gray-500">Verified accounts and secured payments through eSewa.</p>
+      </div>
+      <div>
+        <div class="w-14 h-14 rounded-full bg-dark-gray text-white flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <h3 class="font-semibold mb-2">Speed</h3>
+        <p class="text-sm text-gray-500">Book in minutes, not phone calls back and forth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Policies -->
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <h2 class="text-2xl font-bold text-dark-gray mb-6">Rental Policies</h2>
+  <div class="space-y-4">
+    <div class="card p-6">
+      <h4 class="font-semibold text-dark-gray mb-1">1. Account &amp; Verification</h4>
+      <p class="text-sm text-gray-600">Every renter must register and log in before booking. This keeps our platform secure and ensures every booking is tied to a verified name, phone number and email.</p>
+    </div>
+    <div class="card p-6">
+      <h4 class="font-semibold text-dark-gray mb-1">2. Booking &amp; Pricing</h4>
+      <p class="text-sm text-gray-600">Prices are calculated based on the daily rate of the vehicle, the number of rental days, and the selected destination. A 5% advance via eSewa secures the booking; the remainder is paid on pickup.</p>
+    </div>
+    <div class="card p-6">
+      <h4 class="font-semibold text-dark-gray mb-1">3. Editing &amp; Cancellation</h4>
+      <p class="text-sm text-gray-600">You can edit or cancel your booking any time from "My Bookings" — but only until our team verifies it. Once verified, changes must go through our support team.</p>
+    </div>
+    <div class="card p-6">
+      <h4 class="font-semibold text-dark-gray mb-1">4. Availability</h4>
+      <p class="text-sm text-gray-600">Vehicle availability is live — a vehicle shows "Booked" automatically the moment another customer's booking is confirmed, and becomes "Available" again automatically if that booking is cancelled.</p>
+    </div>
+    <div class="card p-6">
+      <h4 class="font-semibold text-dark-gray mb-1">5. Vehicle Condition</h4>
+      <p class="text-sm text-gray-600">All vehicles are inspected before handover. Renters are expected to return vehicles in the same condition, with any damage reported and assessed at return.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+
+# Sandhya
+{% comment %} <section class="section-light-blue">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-bold text-dark-gray text-center mb-2">Meet Our Team</h2>
+    <p class="text-gray-500 text-center mb-12">The people behind GoRental.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {% for member in team_members %}
+      <div class="card p-5 text-center">
+        <img src="{{ member.photo }}" alt="{{ member.name }}" class="w-20 h-20 rounded-full object-cover mx-auto mb-4">
+        <h3 class="font-semibold text-dark-gray text-sm">{{ member.name }}</h3>
+        <p class="text-xs text-gray-500 mt-0.5">{{ member.role }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% endcomment %}
+# End of Work

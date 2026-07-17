@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Register - GoRental{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="text-center mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-dark-gray">Create Your Account</h1>
+    <p class="text-gray-500 mt-1">Register to book vehicles and manage your trips.</p>
+  </div>
+
+  <form method="post" class="card p-6 md:p-8 space-y-5">
+    {% csrf_token %}
+# Sanjiv
+    {% comment %} <div>
+      <label class="block text-sm font-semibold text-dark-gray mb-1.5">Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}<p class="text-xs text-red-600 mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+    </div> {% endcomment %}
+    # End
+    <div>
+      <label class="block text-sm font-semibold text-dark-gray mb-1.5">Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}<p class="text-xs text-red-600 mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-dark-gray mb-1.5">Phone Number</label>
+      {{ form.phone }}
+      {% if form.phone.errors %}<p class="text-xs text-red-600 mt-1">{{ form.phone.errors.0 }}</p>{% endif %}
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-dark-gray mb-1.5">Password</label>
+      {{ form.password1 }}
+      {% if form.password1.errors %}<p class="text-xs text-red-600 mt-1">{{ form.password1.errors.0 }}</p>{% endif %}
+    </div>
+    <div>
+      <label class="block text-sm font-semibold text-dark-gray mb-1.5">Confirm Password</label>
+      {{ form.password2 }}
+      {% if form.password2.errors %}<p class="text-xs text-red-600 mt-1">{{ form.password2.errors.0 }}</p>{% endif %}
+    </div>
+
+    <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">Create Account</button>
+
+    <p class="text-center text-sm text-gray-500">
+      Already have an account?
+      <a href="{% url 'accounts:login' %}" class="text-deep-blue font-semibold hover:underline">Login here</a>
+    </p>
+  </form>
+</section>
+{% endblock %}

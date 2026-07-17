@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}GoRental - Travel Vehicle Rental in Nepal{% endblock %}
+
+{% block content %}
+
+
+# Sanjiv 
+{% comment %} <!-- Hero -->
+<section class="section-light-blue">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-block bg-white text-deep-blue text-xs font-semibold px-3 py-1 rounded-full mb-4">Nepal's Trusted Vehicle Rental Platform</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-dark-gray leading-tight mb-5">
+        Rent the Right Vehicle for Every Journey
+      </h1>
+      <p class="text-gray-600 text-base md:text-lg mb-8 max-w-lg">
+        Browse cars and bikes by brand, check real-time availability, and calculate your trip cost instantly — all before you book.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="{% url 'vehicles:category_list' %}" class="btn-primary font-semibold px-6 py-3 rounded-lg">Browse Vehicles</a>
+        <a href="{% url 'core:about' %}" class="btn-outline font-semibold px-6 py-3 rounded-lg bg-white">Learn More</a>
+      </div>
+    </div>
+    <div class="relative">
+      <img src="https://placehold.co/700x480/1D4ED8/FFFFFF?text=GoRental" alt="GoRental fleet" class="rounded-2xl shadow-xl w-full object-cover">
+    </div>
+  </div>
+</section> {% endcomment %}
+# End of Sanjiv work
+
+
+<!-- Featured Vehicles -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="flex items-end justify-between mb-8">
+    <div>
+      <h2 class="text-2xl md:text-3xl font-bold text-dark-gray">Featured Vehicles</h2>
+      <p class="text-gray-500 mt-1">Explore our fleet with real photos, angles, and daily rates.</p>
+    </div>
+    <a href="{% url 'vehicles:category_list' %}" class="hidden md:inline-block text-deep-blue font-semibold hover:underline">View all &rarr;</a>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for vehicle in vehicles %}
+    <div class="card overflow-hidden" data-card-href="{% url 'vehicles:detail' vehicle.pk %}">
+      <div class="relative w-full aspect-[4/3] overflow-hidden bg-gray-100" data-carousel>
+        <div class="carousel-track h-full">
+          {% for img in vehicle.images.all %}
+          <img src="{{ img.url }}" alt="{{ vehicle }} {{ img.get_angle_display }}" class="carousel-slide">
+          {% empty %}
+          <img src="https://placehold.co/600x450/E0F2FE/111827?text={{ vehicle.brand.name }}" alt="{{ vehicle }}" class="carousel-slide">
+          {% endfor %}
+        </div>
+
+        {% if vehicle.images.count > 1 %}
+        <button data-no-navigate class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full carousel-arrow flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button data-no-navigate class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full carousel-arrow flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" data-no-navigate>
+          {% for img in vehicle.images.all %}
+          <button class="carousel-dot {% if forloop.first %}active{% endif %}"></button>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <span class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full {% if vehicle.is_available %}badge-available{% else %}badge-booked{% endif %}">
+          {% if vehicle.is_available %}Available{% else %}Booked{% endif %}
+        </span>
+      </div>
+
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-bold text-dark-gray">{{ vehicle.brand.name }} {{ vehicle.model_name }}</h3>
+          <span class="text-xs text-gray-400">{{ vehicle.seats }} seats</span>
+        </div>
+        <p class="text-sm text-gray-500 mb-4 line-clamp-2">{{ vehicle.description|truncatewords:16 }}</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-lg font-extrabold text-deep-blue">NPR {{ vehicle.price_per_day|floatformat:0 }}</span>
+            <span class="text-xs text-gray-400">/ day</span>
+          </div>
+          <a data-no-navigate href="{% url 'vehicles:detail' vehicle.pk %}" class="btn-accent text-sm font-semibold px-4 py-2 rounded-lg">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-full">No vehicles added yet. Add vehicles from the Django admin panel.</p>
+    {% endfor %}
+  </div>
+
+  <div class="text-center mt-10 md:hidden">
+    <a href="{% url 'vehicles:category_list' %}" class="text-deep-blue font-semibold hover:underline">View all vehicles &rarr;</a>
+  </div>
+</section>
+
+# Shobhit
+<!-- How it works -->
+{% comment %} <section class="section-light-blue">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl md:text-3xl font-bold text-dark-gray text-center mb-12">How Booking Works</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-full bg-deep-blue text-white flex items-center justify-center font-bold text-lg mx-auto mb-4">1</div>
+        <h3 class="font-semibold mb-2">Create an Account</h3>
+        <p class="text-sm text-gray-500">Register with your name, phone and email to get started.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-full bg-deep-blue text-white flex items-center justify-center font-bold text-lg mx-auto mb-4">2</div>
+        <h3 class="font-semibold mb-2">Choose a Vehicle</h3>
+        <p class="text-sm text-gray-500">Browse by brand and check photos, specs and availability.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-full bg-deep-blue text-white flex items-center justify-center font-bold text-lg mx-auto mb-4">3</div>
+        <h3 class="font-semibold mb-2">Pick Dates & Destination</h3>
+        <p class="text-sm text-gray-500">Select your travel dates and destination to see the exact price.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-full bg-deep-blue text-white flex items-center justify-center font-bold text-lg mx-auto mb-4">4</div>
+        <h3 class="font-semibold mb-2">Confirm Booking</h3>
+        <p class="text-sm text-gray-500">Review your total cost and confirm — it's that simple.</p>
+      </div>
+    </div>
+  </div>
+</section> {% endcomment %}
+# End of work
+
+{% endblock %}
