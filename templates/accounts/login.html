@@ -23,13 +23,12 @@
       </div>
       {{ form.password }}
     </div>
-# Sandhya
-    {% comment %} {% if form.non_field_errors %}
+ {% if form.non_field_errors %}
     <p class="text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
     {% endif %}
 
-    <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">Login</button> {% endcomment %}
-#
+    <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">Login</button> 
+    
     <p class="text-center text-sm text-gray-500">
       Don't have an account?
       <a href="{% url 'accounts:register' %}" class="text-deep-blue font-semibold hover:underline">Register here</a>
