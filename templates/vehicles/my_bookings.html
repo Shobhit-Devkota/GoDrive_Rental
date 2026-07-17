@@ -31,16 +31,14 @@
 
         <div class="flex flex-col items-end gap-3">
           <span class="font-extrabold text-deep-blue text-lg">NPR {{ booking.total_price|floatformat:0 }}</span>
-# Sandhya
-          {% comment %} {% if not booking.is_verified and booking.status != 'cancelled' and booking.status != 'completed' %}
+ {% if not booking.is_verified and booking.status != 'cancelled' and booking.status != 'completed' %}
           <div class="flex gap-2">
             <a href="{% url 'vehicles:edit_booking' booking.pk %}" class="btn-outline text-xs font-semibold px-4 py-2 rounded-lg">Edit</a>
             <a href="{% url 'vehicles:cancel_booking' booking.pk %}" class="text-xs font-semibold px-4 py-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors">Cancel</a>
           </div>
           {% else %}
           <span class="text-xs text-gray-400">{% if booking.status == 'cancelled' %}Cancelled{% else %}Locked — verified by admin{% endif %}</span>
-          {% endif %} {% endcomment %}
-          # End
+          {% endif %} 
         </div>
       </div>
     </div>

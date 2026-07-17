@@ -23,8 +23,7 @@
     </div>
 
     <!-- Booking form -->
-     # Sandhya
-    {% comment %} <div class="lg:col-span-2">
+   <div class="lg:col-span-2">
       <form id="booking-form" method="post" data-price-per-day="{{ vehicle.price_per_day }}" class="card p-6 md:p-8 space-y-5">
         {% csrf_token %}
 
@@ -37,8 +36,8 @@
             <label class="block text-sm font-semibold text-dark-gray mb-1.5">Phone Number</label>
             {{ form.phone }}
           </div>
-        </div> {% endcomment %}
-# End
+        </div>
+
         <div>
           <label class="block text-sm font-semibold text-dark-gray mb-1.5">Email</label>
           {{ form.email }}
