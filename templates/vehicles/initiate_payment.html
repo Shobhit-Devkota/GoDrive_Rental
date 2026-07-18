@@ -14,8 +14,8 @@
     <span class="font-bold text-deep-blue">NPR {{ booking.advance_amount }}</span> is required.
     You'll be redirected to eSewa to complete this payment securely.
   </p>
-# Shobhit
-  {% comment %} <div class="card p-6 text-left space-y-2 mb-8 text-sm">
+
+  <div class="card p-6 text-left space-y-2 mb-8 text-sm">
     <div class="flex justify-between"><span class="text-gray-500">Total Booking Price</span><span class="font-semibold">NPR {{ booking.total_price|floatformat:0 }}</span></div>
     <div class="flex justify-between"><span class="text-gray-500">Advance to Pay Now (5%)</span><span class="font-semibold text-deep-blue">NPR {{ booking.advance_amount }}</span></div>
     <div class="flex justify-between border-t border-gray-100 pt-2"><span class="text-gray-500">Remaining (pay on pickup)</span><span class="font-semibold">NPR {{ booking.remaining_amount|floatformat:0 }}</span></div>
@@ -26,8 +26,8 @@
     <input type="hidden" name="{{ key }}" value="{{ value }}">
     {% endfor %}
     <button type="submit" class="btn-primary font-semibold px-8 py-3 rounded-lg">Continue to eSewa</button>
-  </form> {% endcomment %}
-# End
+  </form>
+
   <p class="text-xs text-gray-400 mt-6">You'll be redirected automatically in a moment. If nothing happens, click the button above.</p>
 
   <div class="mt-10 pt-8 border-t border-gray-100 text-left">
