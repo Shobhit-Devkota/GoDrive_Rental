@@ -7,8 +7,8 @@
     <h1 class="text-2xl md:text-3xl font-bold text-dark-gray">Enter Your Reset Code</h1>
     <p class="text-gray-500 mt-1">We sent a 6-digit code to <span class="font-semibold text-dark-gray">{{ email }}</span>. It expires in 15 minutes.</p>
   </div>
-# Shobhit 
-  {% comment %} <form method="post" class="card p-6 md:p-8 space-y-5">
+
+  <form method="post" class="card p-6 md:p-8 space-y-5">
     {% csrf_token %}
     <div>
       <label class="block text-sm font-semibold text-dark-gray mb-1.5 text-center">6-Digit Code</label>
@@ -26,8 +26,8 @@
 
     {% if form.non_field_errors %}
     <p class="text-sm text-red-600">{{ form.non_field_errors.0 }}</p>
-    {% endif %} {% endcomment %}
-# End
+    {% endif %}
+
     <button type="submit" class="w-full btn-primary font-semibold px-6 py-3 rounded-lg">Reset Password</button>
 
     <p class="text-center text-sm text-gray-500">
