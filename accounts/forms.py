@@ -13,18 +13,17 @@ INPUT_CLASSES = (
 # Nepali mobile numbers: 10 digits, starting with 97 or 98 (NTC/Ncell ranges).
 NEPALI_PHONE_REGEX = re.compile(r'^(97|98)\d{8}$')
 
-# Shobhit
-# class RegisterForm(UserCreationForm):
-#     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
-#         'class': INPUT_CLASSES, 'placeholder': 'you@example.com'
-#     }))
-#     phone = forms.CharField(max_length=20, required=True, widget=forms.TextInput(attrs={
-#         'class': INPUT_CLASSES, 'placeholder': '98XXXXXXXX'
-#     }))
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
+        'class': INPUT_CLASSES, 'placeholder': 'you@example.com'
+    }))
+    phone = forms.CharField(max_length=20, required=True, widget=forms.TextInput(attrs={
+        'class': INPUT_CLASSES, 'placeholder': '98XXXXXXXX'
+    }))
 
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'phone', 'password1', 'password2']
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'phone', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
