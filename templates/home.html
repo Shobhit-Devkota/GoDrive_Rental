@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}GoRental - Travel Vehicle Rental in Nepal{% endblock %}
+{% block title %}GoDrive - Travel Vehicle Rental in Nepal{% endblock %}
 
 {% block content %}
 
@@ -10,10 +10,10 @@
     <div>
       <span class="inline-block bg-white text-deep-blue text-xs font-semibold px-3 py-1 rounded-full mb-4">Nepal's Trusted Vehicle Rental Platform</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-dark-gray leading-tight mb-5">
-        Rent the Right Vehicle for Every Journey
+        The Smarter Way to Rent Vehicles in Nepal
       </h1>
       <p class="text-gray-600 text-base md:text-lg mb-8 max-w-lg">
-        Browse cars and bikes by brand, check real-time availability, and calculate your trip cost instantly — all before you book.
+        GoDrive Rental connects you with trusted vehicle owners and rental agencies, making vehicle booking simple, transparent, and hassle free.
       </p>
       <div class="flex flex-wrap gap-4">
         <a href="{% url 'vehicles:category_list' %}" class="btn-primary font-semibold px-6 py-3 rounded-lg">Browse Vehicles</a>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="relative">
-      <img src="https://placehold.co/700x480/1D4ED8/FFFFFF?text=GoRental" alt="GoRental fleet" class="rounded-2xl shadow-xl w-full object-cover">
+  <img src="{% static 'img/hero-banner.jpg' %}" alt="GoDrive Rental" class="rounded-2xl shadow-xl w-full object-cover">
     </div>
   </div>
 </section>
