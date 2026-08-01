@@ -38,10 +38,20 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
 
+
       <a href="{% url 'core:home' %}" class="flex items-center gap-2 shrink-0">
-        <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-deep-blue text-white font-bold text-sm">GR</span>
-        <span class="text-lg font-bold text-dark-gray">Go<span class="text-deep-blue">Rental</span></span>
+    <img src="{% static 'img/logo.png' %}"
+         alt="GoDrive Rental Logo"
+         class="w-10 h-10 object-contain">
+
+    <span class="text-lg font-bold text-dark-gray">
+        GoDrive<span class="text-deep-blue"> Rental</span>
+    </span>
       </a>
+      {% comment %} <a href="{% url 'core:home' %}" class="flex items-center gap-2 shrink-0">
+        <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-deep-blue text-white font-bold text-sm">GD</span>
+        <span class="text-lg font-bold text-dark-gray">GoDrive<span class="text-deep-blue"> Rental</span></span>
+      </a> {% endcomment %}
 
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-dark-gray">
         <a href="{% url 'core:home' %}" class="hover:text-deep-blue transition-colors">Home</a>
@@ -158,8 +168,8 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
     <div>
       <div class="flex items-center gap-2 mb-4">
-        <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-deep-blue text-white font-bold text-sm">GR</span>
-        <span class="text-lg font-bold text-white">GoRental</span>
+        <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-deep-blue text-white font-bold text-sm">GD</span>
+        <span class="text-lg font-bold text-white">GoDrive Rental</span>
       </div>
       <p class="text-sm text-gray-400 leading-relaxed">Reliable travel vehicle rental across Nepal — cars, bikes and vans for every journey, booked online in minutes.</p>
     </div>
@@ -184,7 +194,7 @@
       <h4 class="text-white font-semibold mb-4">Contact</h4>
       <ul class="space-y-2 text-sm text-gray-400">
         <li>Kathmandu, Nepal</li>
-        <li>+977-98XXXXXXXX</li>
+        <li>+977-9862208515</li>
         <li>support@gorental.com.np</li>
       </ul>
     </div>
