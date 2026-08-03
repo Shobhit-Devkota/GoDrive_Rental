@@ -143,6 +143,7 @@
           <th class="py-3 px-4">Total</th>
           <th class="py-3 px-4">Status</th>
           <th class="py-3 px-4">Booked On</th>
+          <th class="py-3 px-4">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -165,6 +166,34 @@
             </span>
           </td>
           <td class="py-2.5 px-4 text-gray-500">{{ booking.created_at|date:"d M Y, H:i" }}</td>
+          <td class="py-2.5 px-4 text-gray-500">{{ booking.created_at|date:"d M Y, H:i" }}</td>
+          <td class="py-2.5 px-4">
+            <div class="flex flex-wrap gap-1.5">
+              <a href="{% url 'vehicles:admin_edit_booking' booking.pk %}" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-light-blue text-deep-blue hover:bg-deep-blue hover:text-white transition-colors">Edit</a>
+
+              {% if booking.status != 'confirmed' %}
+              <form method="post" action="{% url 'vehicles:admin_confirm_booking' booking.pk %}" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="text-xs font-semibold px-2.5 py-1 rounded-md badge-available hover:opacity-80 transition-opacity">Confirm</button>
+              </form>
+              {% endif %}
+
+              {% if not booking.is_verified %}
+              <form method="post" action="{% url 'vehicles:admin_verify_booking' booking.pk %}" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-teal text-white hover:opacity-90 transition-opacity">Verify</button>
+              </form>
+              {% endif %}
+
+              {% if booking.status != 'cancelled' %}
+              <form method="post" action="{% url 'vehicles:admin_cancel_booking' booking.pk %}" class="inline"
+                    onsubmit="return confirm('Cancel booking #{{ booking.pk }}? This will free up the vehicle immediately.');">
+                {% csrf_token %}
+                <button type="submit" class="text-xs font-semibold px-2.5 py-1 rounded-md badge-booked hover:opacity-80 transition-opacity">Cancel</button>
+              </form>
+              {% endif %}
+            </div>
+          </td>
         </tr>
         {% empty %}
         <tr><td colspan="10" class="py-6 px-4 text-center text-gray-500">No bookings yet.</td></tr>

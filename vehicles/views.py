@@ -9,6 +9,7 @@ from django.urls import reverse
 from .models import Brand, Vehicle, Destination, Booking, Payment
 from .forms import BookingForm
 from . import esewa
+from django.utils import timezone
 
 REGULAR_CUSTOMER_THRESHOLD = 2  # 2 or more bookings = regular customer
 
@@ -197,6 +198,77 @@ def payment_success(request):
 
     return redirect('vehicles:booking_success', pk=payment.booking.pk)
 
+@user_passes_test(lambda u: u.is_staff, login_url='accounts:login')
+def admin_confirm_booking(request, pk):
+    if request.method == 'POST':
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.status = 'confirmed'
+        booking.save()
+        messages.success(request, f"Booking #{booking.pk} marked as confirmed.")
+    return redirect('vehicles:admin_dashboard')
+
+
+@user_passes_test(lambda u: u.is_staff, login_url='accounts:login')
+def admin_cancel_booking(request, pk):
+    if request.method == 'POST':
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.status = 'cancelled'
+        booking.save()
+        messages.success(request, f"Booking #{booking.pk} cancelled. Vehicle availability updated automatically.")
+    return redirect('vehicles:admin_dashboard')
+
+
+@user_passes_test(lambda u: u.is_staff, login_url='accounts:login')
+def admin_verify_booking(request, pk):
+    if request.method == 'POST':
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.is_verified = True
+        booking.verified_at = timezone.now()
+        booking.verified_by = request.user
+        booking.status = 'confirmed'
+        booking.save()
+        messages.success(request, f"Booking #{booking.pk} verified and confirmed.")
+    return redirect('vehicles:admin_dashboard')
+
+# i am working here 
+@user_passes_test(lambda u: u.is_staff, login_url='accounts:login')
+def admin_edit_booking(request, pk):
+    """Lets staff edit ANY booking, regardless of verification status —
+    unlike the customer-facing edit_booking view, which locks once verified."""
+    booking = get_object_or_404(Booking, pk=pk)
+    destinations = Destination.objects.all()
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            updated_booking = form.save(commit=False)
+
+            days = (updated_booking.end_date - updated_booking.start_date).days
+            daily_rate = booking.vehicle.price_per_day
+            extra = updated_booking.destination.extra_charge_per_day if updated_booking.destination else 0
+            total = (daily_rate + extra) * days
+            if total < 0:
+                total = 0
+
+            updated_booking.total_days = days
+            updated_booking.total_price = total
+            updated_booking.save()
+
+            messages.success(request, f"Booking #{booking.pk} updated by admin.")
+            return redirect('vehicles:admin_dashboard')
+    else:
+        form = BookingForm(instance=booking)
+
+    context = {
+        'booking': booking,
+        'vehicle': booking.vehicle,
+        'form': form,
+        'destinations': destinations,
+        'is_edit': True,
+        'is_admin_edit': True,
+    }
+    return render(request, 'vehicles/booking.html', context)
+#End of work
 
 @login_required
 def payment_failure(request, pk):

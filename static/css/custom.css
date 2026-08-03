@@ -62,12 +62,16 @@ body {
 }
 
 .badge-available {
-  background-color: rgba(13, 148, 136, 0.12);
-  color: var(--teal);
+  background-color: var(--teal);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .badge-booked {
-  background-color: rgba(220, 38, 38, 0.10);
-  color: #dc2626;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 /* Vehicle image carousel */
