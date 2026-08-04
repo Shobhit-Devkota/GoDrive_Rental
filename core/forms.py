@@ -6,8 +6,22 @@ INPUT_CLASSES = (
     'focus:ring-2 focus:ring-[var(--deep-blue)] focus:border-transparent'
 )
 
+SUBJECT_CHOICES = [
+    ('', 'Select a topic'),
+    ('Booking Inquiry', 'Booking Inquiry'),
+    ('Vehicle Availability', 'Vehicle Availability'),
+    ('Payment / Refund', 'Payment / Refund'),
+    ('Feedback', 'Feedback'),
+    ('Other', 'Other'),
+]
+
 
 class ContactForm(forms.ModelForm):
+    subject = forms.ChoiceField(
+        choices=SUBJECT_CHOICES,
+        widget=forms.Select(attrs={'class': INPUT_CLASSES}),
+    )
+
     class Meta:
         model = ContactMessage
         fields = ['name', 'email', 'phone', 'subject', 'message']
@@ -15,6 +29,5 @@ class ContactForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': INPUT_CLASSES, 'placeholder': 'Your name'}),
             'email': forms.EmailInput(attrs={'class': INPUT_CLASSES, 'placeholder': 'you@example.com'}),
             'phone': forms.TextInput(attrs={'class': INPUT_CLASSES, 'placeholder': '98XXXXXXXX (optional)'}),
-            'subject': forms.TextInput(attrs={'class': INPUT_CLASSES, 'placeholder': 'Subject'}),
-            'message': forms.Textarea(attrs={'class': INPUT_CLASSES, 'placeholder': 'Your message', 'rows': 5}),
+            'message': forms.Textarea(attrs={'class': INPUT_CLASSES, 'placeholder': 'Your message', 'rows': 7}),
         }
