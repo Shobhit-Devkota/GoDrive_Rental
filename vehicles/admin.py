@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Count
 from django.utils import timezone
 from django.utils.html import format_html
-from .models import Brand, Vehicle, VehicleImage, Destination, Booking, Payment
+from .models import Brand, Vehicle, VehicleImage, Booking, Payment
 
 REGULAR_CUSTOMER_THRESHOLD = 2
 
@@ -20,7 +20,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(Vehicle)
 class VehicleAdmin(admin.ModelAdmin):
-    list_display = ['brand', 'model_name', 'price_per_day', 'availability_display', 'is_active', 'is_featured']
+    list_display = ['brand', 'model_name', 'price_per_day', 'driver_cost_per_day', 'availability_display', 'is_active', 'is_featured']
     list_filter = ['brand', 'is_active', 'is_featured', 'transmission', 'fuel_type']
     search_fields = ['model_name', 'brand__name']
     readonly_fields = ['availability_display']
@@ -31,12 +31,6 @@ class VehicleAdmin(admin.ModelAdmin):
             return format_html('<span style="color:#0D9488;font-weight:600;">{}</span>', 'Available')
         return format_html('<span style="color:#DC2626;font-weight:600;">{}</span>', 'Booked')
     availability_display.short_description = 'Live Availability (computed from bookings)'
-
-
-@admin.register(Destination)
-class DestinationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'extra_charge_per_day']
-    prepopulated_fields = {'slug': ('name',)}
 
 
 class PaymentInline(admin.StackedInline):
@@ -51,13 +45,13 @@ class BookingAdmin(admin.ModelAdmin):
     # Superusers and staff with Booking permissions get full add/change/delete access by default.
     list_display = [
         'id', 'full_name', 'customer_username', 'phone', 'email',
-        'vehicle', 'destination', 'start_date', 'end_date',
+        'vehicle', 'with_driver', 'start_date', 'end_date',
         'total_days', 'total_price', 'advance_amount_display', 'payment_status',
         'status', 'verified_flag', 'customer_type', 'created_at',
     ]
     list_display_links = ['id', 'full_name']
     list_editable = ['status']
-    list_filter = ['status', 'is_verified', 'destination', 'vehicle__brand', 'created_at']
+    list_filter = ['status', 'is_verified', 'with_driver', 'vehicle__brand', 'created_at']
     search_fields = ['full_name', 'email', 'phone', 'user__username']
     readonly_fields = ['total_days', 'total_price', 'created_at', 'customer_type', 'verified_at', 'verified_by']
     date_hierarchy = 'created_at'
@@ -114,7 +108,7 @@ class BookingAdmin(admin.ModelAdmin):
         updated = 0
         for booking in queryset:
             booking.status = 'confirmed'
-            booking.save()  # per-instance save so the vehicle-availability signal fires
+            booking.save()  # per-instance save so vehicle availability recomputes correctly
             updated += 1
         self.message_user(request, f"{updated} booking(s) marked as confirmed.")
 

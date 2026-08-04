@@ -94,22 +94,26 @@ function initBookingCalculator() {
   if (!form) return;
 
   const pricePerDay = parseFloat(form.dataset.pricePerDay || '0');
+  const driverCost = parseFloat(form.dataset.driverCost || '0');
   const startInput = document.getElementById('id_start_date');
   const endInput = document.getElementById('id_end_date');
-  const destinationSelect = document.getElementById('id_destination');
+  const driverRadios = document.querySelectorAll('input[name="with_driver"]');
   const summaryBox = document.getElementById('price-summary');
 
   const daysOut = document.getElementById('summary-days');
   const rateOut = document.getElementById('summary-rate');
-  const destOut = document.getElementById('summary-destination-charge');
   const totalOut = document.getElementById('summary-total');
   const advanceOut = document.getElementById('summary-advance');
-  const ADVANCE_RATE = 0.05; // 5% advance required to secure the booking, paid via eSewa
+  const ADVANCE_RATE = 0.05;
 
-  function getDestinationExtra() {
-    if (!destinationSelect || !destinationSelect.value) return 0;
-    const opt = destinationSelect.options[destinationSelect.selectedIndex];
-    return parseFloat(opt.dataset.extra || '0');
+  // Prevent picking any date before today
+  const todayStr = new Date().toISOString().split('T')[0];
+  if (startInput) startInput.min = todayStr;
+  if (endInput) endInput.min = todayStr;
+
+  function getWithDriver() {
+    const checked = document.querySelector('input[name="with_driver"]:checked');
+    return checked && checked.value === '1';
   }
 
   function recalc() {
@@ -119,38 +123,37 @@ function initBookingCalculator() {
     }
     const start = new Date(startInput.value);
     const end = new Date(endInput.value);
-    const diffMs = end - start;
-    const days = Math.round(diffMs / (1000 * 60 * 60 * 24));
+    const days = Math.round((end - start) / (1000 * 60 * 60 * 24));
 
     if (days <= 0) {
       if (summaryBox) summaryBox.classList.add('hidden');
       return;
     }
 
-    const destExtra = getDestinationExtra();
-    const effectiveDailyRate = pricePerDay + destExtra;
-    let total = effectiveDailyRate * days;
-    if (total < 0) total = 0;
+    const withDriver = getWithDriver();
+    const effectiveDailyRate = pricePerDay + (withDriver ? driverCost : 0);
+    const total = effectiveDailyRate * days;
     const advance = total * ADVANCE_RATE;
 
     if (summaryBox) {
       summaryBox.classList.remove('hidden');
       daysOut.textContent = days;
-      rateOut.textContent = 'NPR ' + pricePerDay.toLocaleString();
-      destOut.textContent = (destExtra >= 0 ? '+ NPR ' : '- NPR ') + Math.abs(destExtra).toLocaleString() + ' / day';
+      rateOut.textContent = 'NPR ' + effectiveDailyRate.toLocaleString() + (withDriver ? ' (incl. driver)' : ' (self-drive)');
       totalOut.textContent = 'NPR ' + total.toLocaleString();
       advanceOut.textContent = 'NPR ' + advance.toLocaleString(undefined, {maximumFractionDigits: 2});
     }
   }
 
-  [startInput, endInput, destinationSelect].forEach(function (el) {
+  [startInput, endInput].forEach(function (el) {
     if (el) el.addEventListener('change', recalc);
   });
+  driverRadios.forEach(function (radio) {
+    radio.addEventListener('change', recalc);
+  });
 
-  // Ensure end date can't be before start date
   if (startInput && endInput) {
     startInput.addEventListener('change', function () {
-      endInput.min = startInput.value;
+      endInput.min = startInput.value > todayStr ? startInput.value : todayStr;
     });
   }
 

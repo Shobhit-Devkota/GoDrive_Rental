@@ -34,6 +34,10 @@ class Vehicle(models.Model):
     transmission = models.CharField(max_length=20, choices=TRANSMISSION_CHOICES, default='automatic')
     fuel_type = models.CharField(max_length=20, choices=FUEL_CHOICES, default='petrol')
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2)
+    driver_cost_per_day = models.DecimalField(
+        max_digits=10, decimal_places=2, default=1500,
+        help_text="Extra cost per day if the customer books this vehicle with a driver"
+    )
     is_active = models.BooleanField(
         default=True,
         help_text="Untick to hide this vehicle from the site entirely (e.g. sold, retired, under repair). "
@@ -122,7 +126,7 @@ class Booking(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='bookings')
-    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True)
+    with_driver = models.BooleanField(default=False, help_text="True if the customer chose to book with a driver, False for self-drive")
 
     full_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=20)
