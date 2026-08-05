@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 from .forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetCodeForm, ProfileEditForm
 from .models import PasswordResetCode
@@ -157,3 +159,27 @@ def profile_view(request):
         })
 
     return render(request, 'accounts/profile.html', {'form': form, 'profile': profile})
+
+
+
+@login_required
+def change_password_view(request):
+    INPUT_CLASSES = (
+        'w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none '
+        'focus:ring-2 focus:ring-[var(--deep-blue)] focus:border-transparent'
+    )
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Your password has been changed successfully.")
+            return redirect('accounts:profile')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    for field_name in form.fields:
+        form.fields[field_name].widget.attrs.update({'class': INPUT_CLASSES})
+
+    return render(request, 'accounts/change_password.html', {'form': form})
