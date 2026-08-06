@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initBookingCalculator();
   initUserMenu();
   initCardNavigation();
+  initPasswordToggles();
 });
 
 // Avatar dropdown menu (desktop) - toggle open/closed, close on outside click
@@ -158,4 +159,20 @@ function initBookingCalculator() {
   }
 
   recalc();
+}
+
+function initPasswordToggles() {
+  document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const targetId = btn.getAttribute('data-toggle-password');
+      const input = document.getElementById(targetId);
+      if (!input) return;
+
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      btn.querySelector('.eye-open').classList.toggle('hidden', isPassword);
+      btn.querySelector('.eye-closed').classList.toggle('hidden', !isPassword);
+    });
+  });
 }

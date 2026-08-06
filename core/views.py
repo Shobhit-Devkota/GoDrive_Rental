@@ -15,10 +15,10 @@ def about(request):
     # Replace these with your real team members — name, role, and a photo URL
     # (upload your own images somewhere and paste the link, or swap in a static file path).
     team_members = [
-        {"name": "Team Member 1", "role": "Founder / Developer", "photo": "https://placehold.co/200x200/1D4ED8/FFFFFF?text=1"},
-        {"name": "Team Member 2", "role": "Co-Founder / Operations", "photo": "https://placehold.co/200x200/0D9488/FFFFFF?text=2"},
-        {"name": "Team Member 3", "role": "Design", "photo": "https://placehold.co/200x200/111827/FFFFFF?text=3"},
-        {"name": "Team Member 4", "role": "Marketing", "photo": "https://placehold.co/200x200/E0F2FE/111827?text=4"},
+    {"name": "Shobhit Devkota", "role": "Founder / Developer", "photo": "img/team/member1.jpg"},
+    {"name": "Sandhya Paudel", "role": "Co-Founder / Operations", "photo": "img/team/member2.jpg"},
+    {"name": "Priyanshu Khanal", "role": "Design", "photo": "img/team/member3.jpg"},
+    {"name": "Sanjiv Dahal", "role": "Marketing", "photo": "img/team/member4.jpg"},
     ]
     return render(request, 'about.html', {'team_members': team_members})
 

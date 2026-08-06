@@ -113,7 +113,10 @@ body {
 .mobile-menu.open {
   max-height: 400px;
 }
-
+/* Leaves room for the eye-toggle button inside password fields */
+input[type="password"] {
+  padding-right: 2.75rem;
+}
 
 @keyframes bounce-slow {
   0%, 100% { transform: translateY(0); }
