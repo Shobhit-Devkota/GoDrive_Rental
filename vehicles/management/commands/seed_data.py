@@ -28,7 +28,7 @@ VEHICLES = [
     ("Toyota", "Hilux", "toyota_hilux", "diesel", "manual", 5, 7000,
      "A rugged double-cab pickup built for tough terrain, ideal for adventurous long-distance trips."),
     ("Suzuki", "Alto 800", "alto_800", "petrol", "manual", 4, 2500,
-     "A compact, budget-friendly hatchback perfect for solo travelers and short city trips."),
+     "A compact, budget-friendly comfortable hatchback perfect for solo travelers and short city trips."),
 ]
 
 
