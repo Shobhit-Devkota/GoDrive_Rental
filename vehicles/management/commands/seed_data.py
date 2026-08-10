@@ -20,7 +20,7 @@ VEHICLES = [
     ("MG", "ZS", "mg_zs", "petrol", "automatic", 5, 5300,
      "A modern compact SUV with a feature-packed interior and a comfortable ride for city and highway driving."),
     ("Mahindra", "XUV300", "mahindra_xuv300", "diesel", "manual", 5, 4600,
-     "A compact SUV with strong build quality and a punchy diesel engine, well suited to Nepal's hill roads."),
+     "The compact SUV with strong build quality and a punchy diesel engine, well suited to Nepal's hill roads."),
     ("Tata", "Nexon", "tata_nexon", "diesel", "manual", 5, 4200,
      "A rugged compact SUV built for Nepal's hill roads, offering a strong diesel engine and confident handling."),
     ("Tata", "Tiago", "tata_tiago", "petrol", "manual", 5, 3000,
