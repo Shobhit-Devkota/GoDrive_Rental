@@ -93,7 +93,7 @@ class ResetCodeForm(forms.Form):
         if p1 and p2 and p1 != p2:
             raise forms.ValidationError("The two password fields didn't match.")
         if p1 and len(p1) < 8:
-            raise forms.ValidationError("Password must be at least 8 characters long.")
+            raise forms.ValidationError("Password should be more than 7 characters.")
         return cleaned_data
 
 

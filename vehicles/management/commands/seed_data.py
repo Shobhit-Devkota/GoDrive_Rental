@@ -31,14 +31,6 @@ VEHICLES = [
      "A compact, budget-friendly hatchback perfect for solo travelers and short city trips."),
 ]
 
-DESTINATIONS = [
-    ("Kathmandu Valley", 0),
-    ("Pokhara", 800),
-    ("Chitwan", 500),
-    ("Nagarkot", -300),
-    ("Lumbini", 1200),
-]
-
 
 class Command(BaseCommand):
     help = "Seed the database with real sample vehicles, photos, and destinations."
