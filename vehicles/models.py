@@ -42,7 +42,7 @@ class Vehicle(models.Model):
     is_active = models.BooleanField(
         default=True,
         help_text="Untick to hide this vehicle from the site entirely (e.g. sold, retired, under repair). "
-                   "This is independent of bookings — do NOT use this to mark a vehicle as booked; "
+                   "This is independent of bookings do NOT use this to mark a vehicle as booked; "
                    "that happens automatically once a customer's booking is confirmed."
     )
     is_featured = models.BooleanField(default=False, help_text="Show this vehicle on the homepage")
