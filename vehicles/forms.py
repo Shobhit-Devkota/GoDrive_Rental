@@ -73,5 +73,5 @@ class BookingForm(forms.ModelForm):
                 raise forms.ValidationError(
                     "This vehicle is already booked for part of these dates. Please choose different dates."
                 )
-
+# we need to return clean data
         return cleaned_data
