@@ -52,7 +52,7 @@ class RegisterForm(UserCreationForm):
             user.profile.save()
         return user
 
-
+# Login form 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': INPUT_CLASSES, 'placeholder': 'Username'
