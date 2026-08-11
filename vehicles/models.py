@@ -38,6 +38,7 @@ class Vehicle(models.Model):
         max_digits=10, decimal_places=2, default=1500,
         help_text="Extra cost per day if the customer books this vehicle with a driver"
     )
+    # Checking the condition
     is_active = models.BooleanField(
         default=True,
         help_text="Untick to hide this vehicle from the site entirely (e.g. sold, retired, under repair). "

@@ -31,9 +31,22 @@ VEHICLES = [
      "A compact, budget-friendly comfortable hatchback perfect for solo travelers and short city trips."),
 ]
 
+# Each entry: (destination_name, extra_charge_per_day)
+DESTINATIONS = [
+    ("Kathmandu", 0),
+    ("Pokhara", 1500),
+    ("Chitwan", 1200),
+    ("Lumbini", 1800),
+    ("Bandipur", 1000),
+    ("Nagarkot", 500),
+    ("Dhulikhel", 700),
+    ("Butwal", 1500),
+]
+
 
 class Command(BaseCommand):
     help = "Seed the database with real sample vehicles, photos, and destinations."
+    ...  # rest of the file stays exactly the same
 
     def add_arguments(self, parser):
         parser.add_argument(
