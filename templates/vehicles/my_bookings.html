@@ -18,7 +18,7 @@
               {% elif booking.status == 'cancelled' %}badge-booked
               {% else %}bg-gray-100 text-gray-600{% endif %}">
               {{ booking.get_status_display }}
-              
+#check vechicle booking status and display appropriate badge color and text
             </span>
             {% if booking.is_verified %}
             <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full badge-available">Verified</span>
