@@ -11,7 +11,7 @@ class VehicleImageInline(admin.TabularInline):
     model = VehicleImage
     extra = 1
 
-
+#Admin register page
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
