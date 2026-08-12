@@ -60,7 +60,7 @@ class Vehicle(models.Model):
     @property
     def is_available(self):
         """
-        Computed live from actual bookings — never stored, so it can never go stale or
+        Computed live from actual bookings never stored, so it can never go stale or
         get overwritten. A vehicle is available only if it's active AND has no
         pending/confirmed booking currently against it.
         """
