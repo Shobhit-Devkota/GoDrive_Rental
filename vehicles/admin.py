@@ -11,7 +11,7 @@ class VehicleImageInline(admin.TabularInline):
     model = VehicleImage
     extra = 1
 
-
+#Admin pannel for Brand, Vehicle, Booking, and Payment models with custom display, filters, search fields, and actions for managing bookings and payments in the Django admin interface.
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
